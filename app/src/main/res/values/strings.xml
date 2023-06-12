@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ETO_Assignment</string>
+    <string name="app_name">Task Tracker</string>
     <string name="task">Task</string>
     <string name="no_wrap">%d.</string>
 </resources>
