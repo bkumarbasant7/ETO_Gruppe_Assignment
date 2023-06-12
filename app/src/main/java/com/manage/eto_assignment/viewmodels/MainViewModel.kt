@@ -4,6 +4,8 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manage.eto_assignment.data.repository.TaskRepository
@@ -18,6 +20,7 @@ import kotlinx.coroutines.withContext
 class MainViewModel(private val repository: TaskRepository) : ViewModel() {
 
     val allAvailableTask:MutableState<List<TaskUiState>> = mutableStateOf(emptyList())
+    val allAvailableTaskObservable:MutableLiveData<List<TaskUiState>> by lazy { MutableLiveData<List<TaskUiState>>() }
     fun loadData(){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
@@ -26,6 +29,7 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
                     repository.allTaskObservable.collectLatest {
                         Log.d(TAG, "loadData: ${it.size}")
                         allAvailableTask.value = it.toTaskUiState()
+                        allAvailableTaskObservable.postValue(it.toTaskUiState())
                     }
 
                 }catch (e:Exception){

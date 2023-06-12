@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.LightGray
                 ) {
-                    Greeting(viewModel.allAvailableTask.value) {
+                    MainScreen(viewModel.allAvailableTask.value) {
                         viewModel.updateTask(it)
                     }
                 }
@@ -53,14 +54,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: List<TaskUiState>, onUpdateTask: (task: TaskUiState) -> Unit) {
+fun MainScreen(name: List<TaskUiState>, onUpdateTask: (task: TaskUiState) -> Unit) {
 
     Column {
         TopAppBar {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(Icons.Default.Menu, contentDescription = "")
             }
-            Text(text = "Task")
+            Text(text = stringResource(R.string.task))
         }
         Column(Modifier.padding(8.dp)) {
             TodoListHeader()
@@ -78,6 +79,6 @@ fun Greeting(name: List<TaskUiState>, onUpdateTask: (task: TaskUiState) -> Unit)
 @Composable
 fun DefaultPreview() {
     ETO_AssignmentTheme {
-        Greeting(listOftask) {}
+        MainScreen(listOftask) {}
     }
 }
