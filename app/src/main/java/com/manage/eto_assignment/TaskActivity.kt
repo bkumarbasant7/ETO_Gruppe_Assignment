@@ -24,6 +24,7 @@ class TaskActivity : AppCompatActivity() {
         )[MainViewModel::class.java]
         viewModel.loadData()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onStart() {
